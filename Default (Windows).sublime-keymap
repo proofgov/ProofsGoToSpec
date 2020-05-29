@@ -1,0 +1,3 @@
+[
+	{ "keys": ["shift+ctrl+y"], "command": "proofs_go_to_spec" }
+]
