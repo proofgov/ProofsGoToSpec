@@ -6,6 +6,8 @@ Supports \_spec.rb files and -test.js files.
 
 ## Installation
 
+> Note that the repo must be pulic to work.
+
 1. Package Control: Add Repository -> https://github.com/proofgov/ProofsGoToSpec.git
 2. Package Control: Install Package -> PROOF's Go To Spec: https://github.com/proofgov/ProofsGoToSpec.git
 3. Inside SublimeText open Preferences -> Browse Packages.
@@ -21,11 +23,11 @@ If you have Javascript files they will live in "/test", which you can override w
 
 - Run from menu > Goto > PROOF's Go to Spec
 - Default key binding is command + shift + y
-- Or run from command palette 'PROOF's Go to Spec'
+- Or run from command palette `PROOF's Go to Spec`
 
 ## Dev
 
-git clone https://github.com/proofgov/sublime-plugin.git PROOFsGoToSpec
+git clone https://github.com/proofgov/ProofsGoToSpec.git PROOFsGoToSpec
 
 ## Testing
 
@@ -33,4 +35,4 @@ python resolver_test.py
 
 ## Acknowledgements
 
-Thanks to [reInteractive](http://www.reinteractive.net/) for providing the time to work on this.
+Thanks to [PROOF](https://proofgov.com/) for providing the time to work on this.
