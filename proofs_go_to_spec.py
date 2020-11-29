@@ -32,7 +32,7 @@ class ProofsGoToSpecCommand(sublime_plugin.WindowCommand):
         self.open_any(related_files)
 
     def is_enabled(self):
-        return self.window.active_view() != None
+        return self.window.active_view() is not None
 
     def open_any(self, files):
         if len(files) == 0:
@@ -81,5 +81,6 @@ class ProofsGoToSpecCommand(sublime_plugin.WindowCommand):
             rb=settings.get("go_to_spec_directory") or "spec",
             js=settings.get("go_to_js_test_directory") or "test",
             vue=settings.get("go_to_js_test_directory") or "test",
+            py=settings.get("go_to_py_test_directory") or "tests",
         )
         return extension_to_base_dir[extension]
