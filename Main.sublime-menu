@@ -6,4 +6,32 @@
     "caption": "PROOF's Go to Spec",
     "command": "proofs_go_to_spec"
   }]
-}]
+},
+{
+    "caption": "Preferences",
+    "mnemonic": "n",
+    "id": "preferences",
+    "children": [
+      {
+        "caption": "Package Settings",
+        "mnemonic": "P",
+        "id": "package-settings",
+        "children": [
+          {
+            "caption": "ProofsGoToSpec",
+            "children": [
+              {
+                "caption": "Settings",
+                "command": "edit_settings",
+                "args": {
+                  "base_file": "${packages}/ProofsGoToSpec/ProofsGoToSpec.sublime-settings",
+                  "default": "// Settings in here override those in \"${packages}/ProofsGoToSpec/ProofsGoToSpec.sublime-settings\",\n\n{\n\t$0\n}\n"
+                }
+              },
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
