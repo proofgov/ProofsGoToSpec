@@ -1,5 +1,5 @@
 # to run
-# python resolver_test.py
+# python -m unittest discover
 
 import unittest
 
