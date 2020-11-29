@@ -1,4 +1,4 @@
-# PROOF's Go to Spec (forked from Rails Go To Spec)
+# PROOF's Go to Spec (forked from [Rails Go To Spec](https://github.com/sporto/rails_go_to_spec))
 
 A Sublime Text 3 plug-in. From a .rb file this plug-in will open the relevant spec. If the spec doesn't exist it asks if it should be created.
 
