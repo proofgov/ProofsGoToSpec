@@ -88,5 +88,9 @@ class ProofsGoToSpecCommand(sublime_plugin.WindowCommand):
         user_preferences = settings.get("ProofsGoToSpec")
         try:
             return user_preferences[extension]
-        except (TypeError, KeyError):
-            return preference_defaults[extension]
+        except TypeError:
+            pass
+        except KeyError:
+            pass
+
+        return preference_defaults[extension]
