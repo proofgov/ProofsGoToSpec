@@ -6,6 +6,7 @@ RUBY_SPECIAL_SPEC_MATCHER = re.compile(r"(\.erb|\.haml|\.slim|\.jbuilder)_spec\.
 RUBY_SPECIAL_SOURCE_MATCHER = re.compile(r"\.erb$|\.haml$|\.slim$|\.jbuilder$")
 JS_SPEC_MATCHER = re.compile(r"-test\.js$")
 PYTHON_SPEC_MATCHER = re.compile(r"_test\.py$")
+PYTHON_COURCE_MATCHER = re.compile(r"\.py$")
 
 
 class Resolver:
@@ -22,16 +23,15 @@ class Resolver:
     def get_source(self, file, spec_root="spec"):
         related = []
 
-        if RUBY_SPEC_MATCHER.search(file):
-            # find erb, haml
+        # find erb, haml
+        if RUBY_SPECIAL_SPEC_MATCHER.search(file):
             match = RUBY_SPECIAL_SPEC_MATCHER.search(file)
-            if match:
-                source_ext = match.group(1)
-                file = RUBY_SPECIAL_SPEC_MATCHER.sub(source_ext, file)
-            else:
-                # simply sub .rb to _spec.rb
-                # e.g. foo.rb -> foo_spec.rb
-                file = RUBY_SPEC_MATCHER.sub(".rb", file)
+            source_ext = match.group(1)
+            file = RUBY_SPECIAL_SPEC_MATCHER.sub(source_ext, file)
+        elif RUBY_SPEC_MATCHER.search(file):
+            # simply sub .rb to _spec.rb
+            # e.g. foo.rb -> foo_spec.rb
+            file = RUBY_SPEC_MATCHER.sub(".rb", file)
         elif PYTHON_SPEC_MATCHER.search(file):
             file = PYTHON_SPEC_MATCHER.sub(".py", file)
 
@@ -61,6 +61,8 @@ class Resolver:
             ext = match.group(0)
             regex = re.compile(re.escape(ext) + "$")
             file = regex.sub(ext + "_spec.rb", file)
+        elif PYTHON_COURCE_MATCHER.search(file):
+            file = PYTHON_COURCE_MATCHER.sub("_test.py", file)
 
         if file.find("/lib/") > -1:
             related.append(re.sub(r"/lib/", "/" + spec_root + "/lib/", file))
