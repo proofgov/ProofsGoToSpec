@@ -10,17 +10,17 @@ PYTHON_COURCE_MATCHER = re.compile(r"\.py$")
 
 
 class Resolver:
-    def run(self, file, spec_base="spec"):
-        if self.is_spec(file, spec_base):
-            return self.get_source(file, spec_base)
-        else:
-            return self.get_spec(file, spec_base)
+    def run(self, file, spec_folder="spec", spec_ends_with="spec"):
+        if self.is_spec(file, spec_ends_with=spec_ends_with):
+            return self.get_source(file, spec_folder=spec_folder)
 
-    def is_spec(self, file, spec_base="spec"):
+        return self.get_spec(file, spec_folder=spec_folder)
+
+    def is_spec(self, file, spec_ends_with="spec"):
         file_without_extestion = file.rsplit(".", 1)[0]
-        return file_without_extestion.endswith(spec_base)
+        return file_without_extestion.endswith(spec_ends_with)
 
-    def get_source(self, file, spec_root="spec"):
+    def get_source(self, file, spec_folder="spec"):
         related = []
 
         # find erb, haml
@@ -35,12 +35,12 @@ class Resolver:
         elif PYTHON_SPEC_MATCHER.search(file):
             file = PYTHON_SPEC_MATCHER.sub(".py", file)
 
-        if file.find("/" + spec_root + "/lib/") > -1:
+        if file.find("/" + spec_folder + "/lib/") > -1:
             # file in lib
-            related.append(re.sub(r"/" + spec_root + "/lib/", "/lib/", file))
+            related.append(re.sub(r"/" + spec_folder + "/lib/", "/lib/", file))
         else:
-            related.append(re.sub(r"/" + spec_root + "/", "/app/", file, 1))
-            related.append(re.sub(r"/" + spec_root + "/", "/", file, 1))
+            related.append(re.sub(r"/" + spec_folder + "/", "/app/", file, 1))
+            related.append(re.sub(r"/" + spec_folder + "/", "/", file, 1))
 
         # js/vue matchers
         if JS_SPEC_MATCHER.search(file):
@@ -50,7 +50,7 @@ class Resolver:
 
         return related
 
-    def get_spec(self, file, spec_root="spec"):
+    def get_spec(self, file, spec_folder="spec"):
         related = []
 
         if RUBY_SOUCE_MATCHER.search(file):
@@ -65,11 +65,11 @@ class Resolver:
             file = PYTHON_COURCE_MATCHER.sub("_test.py", file)
 
         if file.find("/lib/") > -1:
-            related.append(re.sub(r"/lib/", "/" + spec_root + "/lib/", file))
+            related.append(re.sub(r"/lib/", "/" + spec_folder + "/lib/", file))
         elif file.find("/app/") > -1:
-            related.append(re.sub(r"/app/", "/" + spec_root + "/", file, 1))
+            related.append(re.sub(r"/app/", "/" + spec_folder + "/", file, 1))
         else:
-            related.append("/" + spec_root + file)
+            related.append("/" + spec_folder + file)
 
         # js/vue matchers
         match = re.search(r".js$|.vue$", file)

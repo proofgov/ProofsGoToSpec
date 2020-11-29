@@ -22,7 +22,7 @@ class ResolverTest(unittest.TestCase):
 
     def test_is_spec_returns_true_for_py_spec(self):
         file = "/test/views/something_test.py"
-        r = Resolver().is_spec(file, spec_base="test")
+        r = Resolver().is_spec(file, spec_ends_with="test")
         self.assertEqual(r, True)
 
     def test_is_spec_returns_false(self):
@@ -42,7 +42,7 @@ class ResolverTest(unittest.TestCase):
 
     def test_is_spec_returns_false_for_py_spec(self):
         file = "/test/views/something.py"
-        r = Resolver().is_spec(file, spec_base="test")
+        r = Resolver().is_spec(file, spec_ends_with="test")
         self.assertEqual(r, False)
 
     # get_source
@@ -82,20 +82,20 @@ class ResolverTest(unittest.TestCase):
 
     def test_finds_source_from_js_component_folder(self):
         file = "/test/js/components/FileRenamePrompt-test.js"
-        r = Resolver().get_source(file, spec_root="test")
+        r = Resolver().get_source(file, spec_folder="test")
         self.assertEqual(len(r), 2)
         self.assertEqual(r[0], "/app/javascript/components/FileRenamePrompt.vue")
         self.assertEqual(r[1], "/javascript/components/FileRenamePrompt.vue")
 
     def test_finds_source_for_noncomponent(self):
         file = "/test/js/utils/string-utils-test.js"
-        r = Resolver().get_source(file, spec_root="test")
+        r = Resolver().get_source(file, spec_folder="test")
         self.assertEqual(len(r), 2)
         self.assertEqual(r[0], "/app/javascript/utils/string-utils.js")
 
     def test_finds_source_from_py(self):
         file = "/tests/something/foo_test.py"
-        r = Resolver().get_source(file, spec_root="tests")
+        r = Resolver().get_source(file, spec_folder="tests")
         self.assertEqual(len(r), 2)
         self.assertEqual(r[0], "/app/something/foo.py")
         self.assertEqual(r[1], "/something/foo.py")
@@ -139,13 +139,13 @@ class ResolverTest(unittest.TestCase):
 
     def test_finds_spec_from_vue(self):
         file = "/app/javascript/components/FileRenamePrompt.vue"
-        r = Resolver().get_spec(file, spec_root="test")
+        r = Resolver().get_spec(file, spec_folder="test")
         self.assertEqual(len(r), 1)
         self.assertEqual(r[0], "/test/js/components/FileRenamePrompt-test.js")
 
     def test_finds_spec_from_py(self):
         file = "/app/something/foo.py"
-        r = Resolver().get_spec(file, spec_root="tests")
+        r = Resolver().get_spec(file, spec_folder="tests")
         self.assertEqual(len(r), 1)
         self.assertEqual(r[0], "/tests/something/foo_test.py")
 
@@ -189,6 +189,13 @@ class ResolverTest(unittest.TestCase):
         self.assertEqual(len(r), 2)
         self.assertEqual(r[0], "/app/views/namespace/users/show.json.jbuilder")
         self.assertEqual(r[1], "/views/namespace/users/show.json.jbuilder")
+
+    def test_run_for_python_spec(self):
+        file = "/tests/something/file_test.py"
+        r = Resolver().run(file, spec_folder="tests", spec_ends_with="test")
+        self.assertEqual(len(r), 2)
+        self.assertEqual(r[0], "/app/something/file.py")
+        self.assertEqual(r[1], "/something/file.py")
 
 
 if __name__ == "__main__":
