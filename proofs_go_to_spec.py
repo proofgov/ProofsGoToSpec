@@ -22,7 +22,7 @@ class ProofsGoToSpecCommand(sublime_plugin.WindowCommand):
             current_file = current_file.replace("\\", "/")
 
         extension = current_file.rsplit(".", 1)[1]
-        preferences = self.get_preferences(view.settings, extension)
+        preferences = self.get_preferences(view, extension)
         related_files = resolver.Resolver().run(current_file, **preferences)
 
         # add the root dir to all files
@@ -76,7 +76,7 @@ class ProofsGoToSpecCommand(sublime_plugin.WindowCommand):
                 self.create_folder(parent)
             os.mkdir(base)
 
-    def get_preferences(self, settings, extension="rb"):
+    def get_preferences(self, view, extension="rb"):
         preference_defaults = {
             "rb": {"spec_folder": "spec", "spec_ends_with": "spec"},
             "js": {"spec_folder": "test", "spec_ends_with": "test"},
@@ -84,6 +84,7 @@ class ProofsGoToSpecCommand(sublime_plugin.WindowCommand):
             "py": {"spec_folder": "tests", "spec_ends_with": "test"},
         }
 
+        settings = view.settings()
         user_preferences = settings.get("ProofsGoToSpec")
         try:
             return user_preferences[extension]
