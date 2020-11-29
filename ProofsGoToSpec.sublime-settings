@@ -1,0 +1,18 @@
+{
+  "rb": {
+    "spec_folder": "spec",
+    "spec_ends_with": "spec"
+  },
+  "js": {
+    "spec_folder": "test",
+    "spec_ends_with": "test"
+  },
+  "vue": {
+    "spec_folder": "test",
+    "spec_ends_with": "test"
+  },
+  "py": {
+    "spec_folder": "tests",
+    "spec_ends_with": "test"
+  }
+}

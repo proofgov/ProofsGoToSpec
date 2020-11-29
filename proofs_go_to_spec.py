@@ -15,14 +15,18 @@ class ProofsGoToSpecCommand(sublime_plugin.WindowCommand):
         current_file = view.file_name()
 
         # remove the root dir
-        root_path = win.folders()[0]
+        try:
+            root_path = win.folders()[0]
+        except IndexError:
+            return "There are no files open to handle."
+
         current_file = re.sub(root_path, "", current_file)
 
         if os.name == "nt":
             current_file = current_file.replace("\\", "/")
 
         extension = current_file.rsplit(".", 1)[1]
-        preferences = self.get_preferences(view, extension)
+        preferences = self.get_preferences(extension)
         related_files = resolver.Resolver().run(current_file, **preferences)
 
         # add the root dir to all files
@@ -76,21 +80,9 @@ class ProofsGoToSpecCommand(sublime_plugin.WindowCommand):
                 self.create_folder(parent)
             os.mkdir(base)
 
-    def get_preferences(self, view, extension="rb"):
-        preference_defaults = {
-            "rb": {"spec_folder": "spec", "spec_ends_with": "spec"},
-            "js": {"spec_folder": "test", "spec_ends_with": "test"},
-            "vue": {"spec_folder": "test", "spec_ends_with": "test"},
-            "py": {"spec_folder": "tests", "spec_ends_with": "test"},
+    def get_preferences(self, extension="rb"):
+        preferences = sublime.load_settings("ProofsGoToSpec.sublime-settings")
+        return preferences.get(extension) or {
+            "spec_folder": "spec",
+            "spec_ends_with": "spec",
         }
-
-        settings = view.settings()
-        user_preferences = settings.get("ProofsGoToSpec")
-        try:
-            return user_preferences[extension]
-        except TypeError:
-            pass
-        except KeyError:
-            pass
-
-        return preference_defaults[extension]
