@@ -2,7 +2,7 @@
 
 A Sublime Text 3 plug-in. From a .rb file this plug-in will open the relevant spec. If the spec doesn't exist it asks if it should be created.
 
-Supports \_spec.rb files and -test.js files.
+Supports `_spec.rb` files and `-test.js` files and `_test.py` files
 
 ## Installation
 
@@ -14,15 +14,20 @@ Supports \_spec.rb files and -test.js files.
    > optionally - Restart SublimeText
 4. Package Control: List Packages -> PROOFsGoToSpec should exist.
 
-By default, specs are assumed to live in "/spec", but if you have a nonstandard
-location, you can override with the "go_to_spec_directory" setting in your preferences.
+## Preferences
 
-If you have Javascript files they will live in "/test", which you can override with "got_to_js_test_directory" setting in your preferences. The path is also slightly mangled "/javascript/" becomes "/js/". Vue files are supported with the same style as JS files.
+Preferences -> Package Settings > ProofsGoToSpec > Settings
+By default, specs are assumed to live in "/spec", but if you have a nonstandard
+location, you can override current setting in your preferences.
+
+If you have Javascript files they will live in "/test", which you can override in your preferences. The path is also slightly mangled "/javascript/" becomes "/js/". Vue files are supported with the same style as JS files.
+
+If you have Python files they will live in "/tests".
 
 ## Usage
 
 - Run from menu > Goto > PROOF's Go to Spec
-- Default key binding is command + shift + y
+- Default key binding is `command + shift + y`
 - Or run from command palette `PROOF's Go to Spec`
 
 ## Dev
@@ -31,8 +36,10 @@ git clone https://github.com/proofgov/ProofsGoToSpec.git PROOFsGoToSpec
 
 ## Testing
 
-python resolver_test.py
+From the project directory:
+`python -m unittest discover`
 
 ## Acknowledgements
 
 Thanks to [PROOF](https://proofgov.com/) for providing the time to work on this.
+And to [elthran](https://github.com/elthran) for always getting me to write code that needs this kind of thing.
