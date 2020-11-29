@@ -17,12 +17,13 @@ Supports `_spec.rb` files and `-test.js` files and `_test.py` files
 ## Preferences
 
 Preferences -> Package Settings > ProofsGoToSpec > Settings
-By default, specs are assumed to live in "/spec", but if you have a nonstandard
+
+By default, specs are assumed to live in `/spec/`, top level directory of the project, but if you have a nonstandard
 location, you can override current setting in your preferences.
 
-If you have Javascript files they will live in "/test", which you can override in your preferences. The path is also slightly mangled "/javascript/" becomes "/js/". Vue files are supported with the same style as JS files.
+If you have Javascript files they will live in `/test/`, which you can override in your preferences. The path is also slightly mangled `/javascript/` becomes `/js/`. Vue files are supported with the same style as JS files.
 
-If you have Python files they will live in "/tests".
+If you have Python files they will live in `/tests`.
 
 ## Usage
 
