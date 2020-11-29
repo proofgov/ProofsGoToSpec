@@ -1,6 +1,10 @@
 # PROOF's Go to Spec (forked from [Rails Go To Spec](https://github.com/sporto/rails_go_to_spec))
 
-A Sublime Text 3 plug-in. From a .rb file this plug-in will open the relevant spec. If the spec doesn't exist it asks if it should be created.
+A Sublime Text 3 plug-in.
+This plugin makes switching between spec and source files quick and easy.
+From a `.rb` file this plug-in will open the relevant `_spec.rb` file. 
+If the spec doesn't exist it asks if it will prompt you to created it.
+Switching is by-directional.
 
 Supports `_spec.rb` files and `-test.js` files and `_test.py` files
 
